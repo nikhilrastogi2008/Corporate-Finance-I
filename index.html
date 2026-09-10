@@ -1402,14 +1402,14 @@ let glossAlphaFilter = 'all';
 // deploy Code.gs as a web app, share the Sheet as "Anyone with the link — Viewer", then paste
 // the Web app URL, Sheet ID, and each tab's gid below. Until then, instructor edits and
 // student activity logs will only be saved locally in each browser instead of syncing.
-const API_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL';
-const SHEET_ID = 'REPLACE_WITH_YOUR_GOOGLE_SHEET_ID';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzo9rbF9UZWla95lzfz8tqqh40McosDj-euPErG6g2EaKKFcN1ezY2vO_7Sxh285NQH/exec';
+const SHEET_ID = '1jKmld2iE1IJ4uVrXbPVeUC9hztQq0Cu6shGB-vyo2mg';
 const SHEET_GIDS = {
-  Resources: 'REPLACE_WITH_RESOURCES_GID',
-  Announcements: 'REPLACE_WITH_ANNOUNCEMENTS_GID',
-  Glossary: 'REPLACE_WITH_GLOSSARY_GID',
-  HiddenGlossary: 'REPLACE_WITH_HIDDENGLOSSARY_GID',
-  ActivityLog: 'REPLACE_WITH_ACTIVITYLOG_GID'
+  Resources: '0',
+  Announcements: '1981783007',
+  Glossary: '1812150024',
+  HiddenGlossary: '1961361785',
+  ActivityLog: '492767237'
 };
 
 async function apiAppend(sheet, rows) {
