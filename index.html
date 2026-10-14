@@ -545,6 +545,41 @@
   .pr-msub { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 10px 0 0; padding-top: 6px; border-top: 2px solid var(--border); }
   .pr-mempty { font-size: 0.82rem; color: var(--text-muted); padding: 6px 0; }
   .pr-admin-note { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ---- GRADED QUIZZES ---- */
+  .qz-intro { color: var(--text); background: rgba(255,255,255,0.78); display: inline-block; padding: 6px 12px; border-radius: var(--radius); font-size: 0.85rem; margin-bottom: 1rem; }
+  .qz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .qz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow); }
+  .qz-title { font-weight: 700; color: var(--primary); }
+  .qz-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .qz-badge { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 1px 8px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .qz-badge.open { background: var(--success-light); color: var(--success); }
+  .qz-badge.closed { background: var(--surface2); color: var(--text-muted); }
+  .qz-badge.draft { background: var(--warn-light); color: var(--warn); }
+  .qz-score { font-weight: 700; color: var(--primary); font-size: 1.05rem; }
+  .qz-table { border-collapse: collapse; width: 100%; font-size: 0.85rem; background: var(--surface); }
+  .qz-table th, .qz-table td { border-bottom: 1px solid var(--border); padding: 7px 8px; text-align: left; vertical-align: middle; }
+  .qz-table th { background: var(--surface2); color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  .qz-scroll { overflow-x: auto; margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); }
+  .qz-summary { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .qz-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; min-width: 120px; }
+  .qz-stat b { display: block; font-size: 1.25rem; color: var(--primary); }
+  .qz-stat span { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .qz-timer-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--primary); color: #fff; padding: 10px 14px; border-radius: var(--radius); margin-bottom: 1rem; }
+  .qz-timer { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.15rem; }
+  .qz-timer.low { color: #ffd7d0; animation: qzpulse 1s infinite; }
+  @keyframes qzpulse { 50% { opacity: 0.55; } }
+  .qz-q { margin-bottom: 1rem; }
+  .qz-qtext { font-weight: 600; margin-bottom: 8px; }
+  .qz-opt { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: var(--radius); margin-bottom: 6px; cursor: pointer; background: var(--surface); font-size: 0.92rem; }
+  .qz-opt:hover { border-color: var(--primary); }
+  .qz-opt.sel { border-color: var(--primary); background: var(--surface2); }
+  .qz-opt input { margin-top: 3px; }
+  .qz-rev-ok { color: var(--success); font-weight: 700; }
+  .qz-rev-bad { color: var(--danger); font-weight: 700; }
+  .qz-sel { padding: 4px 8px; border: 1.5px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.8rem; }
+  .qz-empty { color: var(--text-muted); font-size: 0.88rem; padding: 10px 0; }
+
 </style>
 </head>
 <body>
@@ -586,6 +621,9 @@
   </div>
   <div class="nav-tab" onclick="switchTab('practice')" id="tab-practice">
     <i class="ti ti-checklist"></i> Practice
+  </div>
+  <div class="nav-tab" onclick="switchTab('quizzes')" id="tab-quizzes">
+    <i class="ti ti-clipboard-check"></i> Quizzes
   </div>
   <div class="nav-tab" onclick="switchTab('analytics')" id="tab-analytics" style="display:none;">
     <i class="ti ti-chart-bar"></i> Analytics
@@ -806,6 +844,15 @@
     <div id="pr-sec-examples" style="display:none;"></div>
     <div id="pr-sec-formulas" style="display:none;"></div>
     <div id="pr-sec-manage" style="display:none;"></div>
+  </div>
+
+  <!-- ============ QUIZZES (graded) ============ -->
+  <div class="tab-panel" id="panel-quizzes">
+    <div class="section-header">
+      <div class="section-title"><i class="ti ti-clipboard-check"></i> Quizzes</div>
+      <button class="btn btn-outline btn-sm" onclick="loadQuizzes(true)"><i class="ti ti-refresh"></i> Refresh</button>
+    </div>
+    <div id="qz-root"></div>
   </div>
 
   <div class="tab-panel" id="panel-analytics">
@@ -1587,6 +1634,7 @@ async function syncFromSheets() {
   buildAlphaFilter();
   renderGlossary();
   loadPractice();
+  loadQuizzes();
   showToast(all ? '✓ Data loaded' : 'Could not reach the server. Showing built-in content only.');
 }
 
@@ -1698,8 +1746,10 @@ function toggleRole() {
     isInstructor = false;
     instructorKey = '';
     clearPracticeContent();
+    clearQuizState();
     updateRoleUI();
     loadPractice();
+    loadQuizzes();
     showToast('Switched to Student view');
   } else {
     document.getElementById('pwdInput').value = '';
@@ -1726,6 +1776,7 @@ async function checkPassword() {
     updateRoleUI();
     logActivity('instructor_login', 'instructor mode activated');
     loadPractice();
+    loadQuizzes();
     showToast('Instructor mode activated');
   } else {
     errEl.textContent = r.status === 'denied'
@@ -1757,6 +1808,7 @@ function updateRoleUI() {
   renderGlossary();
   renderHomeAnnouncements();
   if (typeof setPracticeView === 'function' && typeof PRACTICE !== 'undefined') setPracticeView(practiceView);
+  if (typeof renderQuizzes === 'function') renderQuizzes();
 }
 
 // =====================
@@ -1770,6 +1822,7 @@ function switchTab(name) {
   logActivity('tab_view', name);
   if (name === 'analytics' && isInstructor) renderAnalytics();
   if (name === 'practice') renderPractice();
+  if (name === 'quizzes') { renderQuizzes(); loadQuizzes(); }
 }
 
 // =====================
@@ -2997,6 +3050,318 @@ function renderFormulas() {
         </tbody></table>
       </div>`).join('');
 }
+
+
+// =====================
+// GRADED QUIZZES
+// =====================
+// Questions are never in this page. They come from the server only when a student starts an open quiz,
+// and the server does the marking. Correct answers are shown only after the instructor closes the quiz.
+let qzList = [];
+let qzMine = [];
+let qzAdminList = null;
+let qzLoaded = false;
+let qzState = null;          // active attempt
+let qzScreen = 'home';       // home | attempt | result | review | results
+let qzResultNote = null;
+let qzResultsData = null;
+let qzResultsFilter = '';
+let qzBusy = false;
+
+function qzWho() {
+  const id = getIdentity();
+  return id ? { name: id.name, enrol: id.enrollmentId } : null;
+}
+function qzStatusLabel(s) { return s === 'open' ? 'Open' : (s === 'closed' ? 'Closed' : 'Draft'); }
+function qzPct(score, total) { return total > 0 ? Math.round((score / total) * 1000) / 10 : 0; }
+function qzFmt(n) { return Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100); }
+function qzDate(s) { const d = new Date(s); return isNaN(d) ? '' : d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }); }
+
+async function loadQuizzes(showMsg) {
+  const who = qzWho();
+  const jobs = [apiCall({ action: 'quizList', key: instructorKey })];
+  jobs.push(who ? apiCall({ action: 'quizMine', name: who.name, enrol: who.enrol }) : Promise.resolve({ status: 'ok', results: [] }));
+  if (isInstructor) jobs.push(apiCall({ action: 'quizAdmin', key: instructorKey }));
+  const [l, m, a] = await Promise.all(jobs);
+  if (l.status === 'ok') { qzList = Array.isArray(l.quizzes) ? l.quizzes : []; qzLoaded = true; }
+  else if (showMsg) showToast('Could not load quizzes. Check your connection.');
+  if (m.status === 'ok') qzMine = Array.isArray(m.results) ? m.results : [];
+  qzAdminList = (a && a.status === 'ok' && Array.isArray(a.quizzes)) ? a : null;
+  if (qzScreen === 'home') renderQuizzes();
+}
+
+function clearQuizState() {
+  qzList = []; qzMine = []; qzAdminList = null; qzLoaded = false; qzResultsData = null;
+}
+
+function renderQuizzes() {
+  const root = document.getElementById('qz-root');
+  if (!root) return;
+  if (qzScreen === 'attempt' && qzState) return renderQuizAttempt();
+  if (qzScreen === 'result') return renderQuizResult();
+  if (qzScreen === 'review') return renderQuizReview();
+  if (qzScreen === 'results' && isInstructor) return renderQuizResults();
+  qzScreen = 'home';
+  const mineBy = {};
+  qzMine.forEach(r => { mineBy[r.quiz] = r; });
+  const visible = qzList.filter(q => q.status !== 'draft');
+  let html = '';
+  if (isInstructor) html += renderQuizAdmin();
+  html += '<p class="qz-intro">Each quiz is timed and you get <strong>one attempt</strong>. Your score appears as soon as you submit. Correct answers are shown after your instructor closes the quiz.</p>';
+  html += '<div class="section-title" style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="ti ti-list-check"></i> Quizzes</div>';
+  if (!qzLoaded) html += '<div class="qz-empty">Loading...</div>';
+  else if (!visible.length) html += '<div class="qz-empty">No quizzes are open yet. Your instructor will open one when it is time.</div>';
+  else {
+    html += '<div class="qz-grid">' + visible.map(q => {
+      const m = mineBy[q.id];
+      let action;
+      if (m && m.done) action = `<div class="qz-score">${qzFmt(m.score)} / ${qzFmt(m.total)} <span class="qz-meta">(${qzPct(m.score, m.total)}%)</span></div>` + (m.review ? `<button class="btn btn-outline btn-sm" onclick="openQuizReview('${escapeHtml(q.id)}')">Review answers</button>` : '<div class="qz-meta">Answers will be shown when the quiz is closed.</div>');
+      else if (m && !m.done) action = `<button class="btn btn-primary btn-sm" onclick="qzStart('${escapeHtml(q.id)}')">Resume attempt</button>`;
+      else if (q.status === 'open') action = `<button class="btn btn-primary btn-sm" onclick="qzStart('${escapeHtml(q.id)}')"><i class="ti ti-player-play"></i> Start quiz</button>`;
+      else action = '<div class="qz-meta">Closed. You did not attempt this quiz.</div>';
+      return `<div class="qz-card"><div><span class="qz-badge ${q.status}">${qzStatusLabel(q.status)}</span></div>
+        <div class="qz-title">${escapeHtml(q.title)}</div>
+        <div class="qz-meta">${q.questions} questions &middot; ${qzFmt(q.marks)} marks &middot; ${q.minutes} min</div>${action}</div>`;
+    }).join('') + '</div>';
+  }
+  const done = qzMine.filter(r => r.done);
+  html += '<div class="section-title" style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="ti ti-chart-bar"></i> My scores</div>';
+  if (!done.length) html += '<div class="qz-empty">You have not completed any quiz yet.</div>';
+  else {
+    const tot = done.reduce((a, r) => a + r.score, 0), mx = done.reduce((a, r) => a + r.total, 0);
+    const avg = done.reduce((a, r) => a + qzPct(r.score, r.total), 0) / done.length;
+    html += `<div class="qz-summary">
+      <div class="qz-stat"><b>${done.length}</b><span>Quizzes done</span></div>
+      <div class="qz-stat"><b>${qzFmt(tot)} / ${qzFmt(mx)}</b><span>Total marks</span></div>
+      <div class="qz-stat"><b>${qzPct(tot, mx)}%</b><span>Overall</span></div>
+      <div class="qz-stat"><b>${Math.round(avg * 10) / 10}%</b><span>Average per quiz</span></div></div>
+      <div class="qz-scroll"><table class="qz-table"><thead><tr><th>Quiz</th><th>Score</th><th>%</th><th>Submitted</th><th></th></tr></thead><tbody>` +
+      done.map(r => `<tr><td>${escapeHtml(r.title)}${r.late ? ' <span class="qz-badge draft">late</span>' : ''}</td><td>${qzFmt(r.score)} / ${qzFmt(r.total)}</td><td>${qzPct(r.score, r.total)}%</td><td>${escapeHtml(qzDate(r.submitted))}</td>
+        <td>${r.review ? `<button class="btn btn-outline btn-sm" onclick="openQuizReview('${escapeHtml(r.quiz)}')">Review</button>` : '<span class="qz-meta">After close</span>'}</td></tr>`).join('') +
+      '</tbody></table></div>';
+  }
+  root.innerHTML = html;
+}
+
+function renderQuizAdmin() {
+  let html = '<div class="instructor-label"><i class="ti ti-lock-open"></i> Instructor Controls: conduct quizzes</div><div class="card" style="margin-bottom:1.25rem;">';
+  const a = qzAdminList;
+  if (!a) html += '<div class="qz-empty">Loading quizzes...</div>';
+  else {
+    if (!a.quizzes.length) html += '<div class="qz-empty">No quizzes found. Add rows to the QuizList and QuizQuestions tabs of your Sheet, then click Refresh.</div>';
+    else html += '<div class="qz-scroll"><table class="qz-table"><thead><tr><th>Quiz</th><th>Status</th><th>Questions</th><th>Marks</th><th>Minutes</th><th>Started</th><th>Submitted</th><th></th></tr></thead><tbody>' +
+      a.quizzes.map(q => `<tr><td><strong>${escapeHtml(q.title)}</strong><div class="qz-meta">${escapeHtml(q.id)}</div></td>
+        <td><select class="qz-sel" onchange="setQuizStatus('${escapeHtml(q.id)}', this.value)">${['draft', 'open', 'closed'].map(s => `<option value="${s}" ${q.status === s ? 'selected' : ''}>${qzStatusLabel(s)}</option>`).join('')}</select></td>
+        <td>${q.questions}</td><td>${qzFmt(q.marks)}</td><td>${q.minutes}</td><td>${q.started}</td><td>${q.submitted}</td>
+        <td><button class="btn btn-outline btn-sm" onclick="openQuizResults('${escapeHtml(q.id)}')">Results</button></td></tr>`).join('') + '</tbody></table></div>';
+    if (a.problems && a.problems.length) html += '<div class="pr-admin-note" style="color:var(--warn);">Some question rows were skipped: ' + a.problems.slice(0, 5).map(escapeHtml).join('; ') + (a.problems.length > 5 ? '; ...' : '') + '</div>';
+    html += '<div class="pr-admin-row" style="margin-top:8px;"><button class="btn btn-outline btn-sm" onclick="openQuizResults(\'\')"><i class="ti ti-table"></i> Class gradebook (all quizzes)</button></div>';
+  }
+  html += '<div class="pr-admin-note" style="margin-top:8px;"><strong>Draft</strong>: hidden from students. <strong>Open</strong>: students can start, and each gets one timed attempt. <strong>Closed</strong>: nobody new can start, and students can now see the correct answers. Do not edit the questions of a quiz after it is opened.</div></div>';
+  return html;
+}
+
+async function setQuizStatus(id, value) {
+  const r = await apiCall({ action: 'quizSetStatus', key: instructorKey, quiz: id, value });
+  if (r.status !== 'ok') { showToast('Could not change the status. Log in as instructor again.'); }
+  else showToast('Quiz set to ' + qzStatusLabel(value));
+  loadQuizzes();
+}
+
+async function qzStart(id) {
+  if (qzBusy) return;
+  const who = qzWho();
+  if (!who) { openIdentityGate(false); return; }
+  const m = qzMine.find(r => r.quiz === id && !r.done);
+  const def = qzList.find(q => q.id === id);
+  if (!m && !confirm('Start "' + (def ? def.title : id) + '"?\n\nThe timer starts now (' + (def ? def.minutes : '') + ' minutes) and keeps running even if you close the page. You get one attempt.')) return;
+  qzBusy = true;
+  const r = await apiCall({ action: 'quizStart', quiz: id, name: who.name, enrol: who.enrol });
+  qzBusy = false;
+  if (r.status === 'done') { showToast('You have already completed this quiz.'); loadQuizzes(); return; }
+  if (r.status !== 'ok') { showToast(r.message || 'Could not start the quiz.'); loadQuizzes(); return; }
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(qzAnsKey(id)) || '{}') || {}; } catch (e) { saved = {}; }
+  qzState = { quiz: r.quiz, questions: r.questions, endAt: Date.now() + r.remaining * 1000, answers: saved, submitting: false, timer: null };
+  qzScreen = 'attempt';
+  logActivity('quiz_start', id);
+  renderQuizAttempt();
+}
+
+function qzAnsKey(id) { const w = qzWho(); return 'cf203_qz_' + id + '_' + (w ? w.enrol : ''); }
+function qzSaveAnswers() { try { localStorage.setItem(qzAnsKey(qzState.quiz.id), JSON.stringify(qzState.answers)); } catch (e) {} }
+
+function renderQuizAttempt() {
+  const s = qzState, root = document.getElementById('qz-root');
+  if (!s) { qzScreen = 'home'; return renderQuizzes(); }
+  root.innerHTML = `<div class="qz-timer-bar"><div><strong>${escapeHtml(s.quiz.title)}</strong><div style="font-size:0.75rem;opacity:0.85;" id="qzAnswered"></div></div><div class="qz-timer" id="qzTimer"></div></div>` +
+    s.questions.map((q, i) => `<div class="card qz-q"><div class="qz-qtext">${i + 1}. ${escapeHtml(q.q)} <span class="qz-meta">(${qzFmt(q.marks)} ${q.marks === 1 ? 'mark' : 'marks'})</span></div>` +
+      q.o.map((o, k) => `<label class="qz-opt ${s.answers[q.id] === o ? 'sel' : ''}" id="qzo_${i}_${k}"><input type="radio" name="qz_${i}" ${s.answers[q.id] === o ? 'checked' : ''} onchange="qzPick(${i}, ${k})"><span>${escapeHtml(o)}</span></label>`).join('') + '</div>').join('') +
+    '<div style="margin:1rem 0 2rem;"><button class="btn btn-primary" id="qzSubmitBtn" onclick="qzSubmit(false)"><i class="ti ti-send"></i> Submit quiz</button></div>';
+  qzTick();
+  if (s.timer) clearInterval(s.timer);
+  s.timer = setInterval(qzTick, 1000);
+  qzUpdateAnswered();
+}
+
+function qzPick(i, k) {
+  const s = qzState; if (!s) return;
+  const q = s.questions[i];
+  s.answers[q.id] = q.o[k];
+  qzSaveAnswers();
+  q.o.forEach((o, j) => { const el = document.getElementById('qzo_' + i + '_' + j); if (el) el.classList.toggle('sel', j === k); });
+  qzUpdateAnswered();
+}
+function qzUpdateAnswered() {
+  const s = qzState, el = document.getElementById('qzAnswered'); if (!s || !el) return;
+  el.textContent = s.questions.filter(q => s.answers[q.id] !== undefined).length + ' of ' + s.questions.length + ' answered';
+}
+function qzTick() {
+  const s = qzState, el = document.getElementById('qzTimer'); if (!s || !el) return;
+  const left = Math.max(0, Math.round((s.endAt - Date.now()) / 1000));
+  const mm = Math.floor(left / 60), ss = left % 60;
+  el.textContent = String(mm).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+  el.classList.toggle('low', left <= 60);
+  if (left <= 0 && !s.submitting) qzSubmit(true);
+}
+
+async function qzSubmit(auto) {
+  const s = qzState; if (!s || s.submitting) return;
+  if (!auto) {
+    const un = s.questions.filter(q => s.answers[q.id] === undefined).length;
+    if (!confirm(un ? un + ' question(s) are unanswered. Submit anyway? You cannot change your answers afterwards.' : 'Submit your answers now? You cannot change them afterwards.')) return;
+  }
+  s.submitting = true;
+  const btn = document.getElementById('qzSubmitBtn'); if (btn) { btn.disabled = true; btn.textContent = auto ? 'Time is up. Submitting...' : 'Submitting...'; }
+  const who = qzWho();
+  let r = await apiCall({ action: 'quizSubmit', quiz: s.quiz.id, name: who.name, enrol: who.enrol, answers: s.answers });
+  if (r.status !== 'ok' && r.status !== 'done') {
+    // Keep the answers and let the student retry (or retry automatically when time is up).
+    s.submitting = false;
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="ti ti-send"></i> Submit quiz'; }
+    showToast('Could not submit. Check your connection and try again.');
+    return;
+  }
+  if (s.timer) clearInterval(s.timer);
+  try { localStorage.removeItem(qzAnsKey(s.quiz.id)); } catch (e) {}
+  logActivity('quiz_submit', s.quiz.id);
+  qzResultNote = { title: s.quiz.title, score: r.score, total: r.total, late: r.late === true, auto: auto };
+  qzState = null; qzScreen = 'result';
+  renderQuizResult();
+}
+
+function renderQuizResult() {
+  const n = qzResultNote, root = document.getElementById('qz-root');
+  if (!n) { qzScreen = 'home'; return renderQuizzes(); }
+  root.innerHTML = `<div class="card pr-result"><div class="pr-score">${qzFmt(n.score)}<span> / ${qzFmt(n.total)}</span></div>
+    <div class="pr-score-msg">${escapeHtml(n.title)} &middot; ${qzPct(n.score, n.total)}%${n.auto ? ' &middot; submitted when time ran out' : ''}${n.late ? ' &middot; flagged as late' : ''}</div>
+    <p class="qz-meta" style="margin:8px 0 14px;">Your result is saved. Correct answers will be shown after your instructor closes the quiz.</p>
+    <div class="pr-result-actions"><button class="btn btn-primary" onclick="qzBackHome()">Back to quizzes</button></div></div>`;
+}
+
+function qzBackHome() { qzScreen = 'home'; qzResultNote = null; renderQuizzes(); loadQuizzes(); }
+
+let qzReviewId = null;
+function openQuizReview(id) { qzReviewId = id; qzScreen = 'review'; renderQuizReview(); }
+function renderQuizReview() {
+  const r = qzMine.find(x => x.quiz === qzReviewId), root = document.getElementById('qz-root');
+  if (!r || !r.review) { qzScreen = 'home'; return renderQuizzes(); }
+  root.innerHTML = `<button class="btn btn-outline btn-sm" onclick="qzBackHome()"><i class="ti ti-arrow-left"></i> Back to quizzes</button>
+    <h3 style="margin:12px 0 4px;color:var(--primary);">${escapeHtml(r.title)}: ${qzFmt(r.score)} / ${qzFmt(r.total)}</h3>` +
+    r.review.map((q, i) => `<div class="card qz-q"><div class="qz-qtext">${i + 1}. ${escapeHtml(q.q)}</div>
+      <div>Your answer: ${q.yours ? escapeHtml(q.yours) : '<em>not answered</em>'} <span class="${q.right ? 'qz-rev-ok' : 'qz-rev-bad'}">${q.right ? '&#10003; correct' : '&#10007; wrong'}</span></div>
+      ${q.right ? '' : `<div>Correct answer: <strong>${escapeHtml(q.correct)}</strong></div>`}
+      ${q.why ? `<div class="pr-missed-why" style="margin-top:6px;">${escapeHtml(q.why)}</div>` : ''}</div>`).join('');
+}
+
+// ---------- instructor results ----------
+async function openQuizResults(id) {
+  qzResultsFilter = id || '';
+  qzScreen = 'results';
+  qzResultsData = null;
+  renderQuizResults();
+  const r = await apiCall({ action: 'quizResults', key: instructorKey, quiz: '' });
+  if (r.status !== 'ok') { showToast('Could not load results. Log in as instructor again.'); qzScreen = 'home'; renderQuizzes(); return; }
+  qzResultsData = r.results;
+  renderQuizResults();
+}
+
+function qzCsvCell(v) {
+  let s = v === null || v === undefined ? '' : String(v);
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+function qzDownload(name, rows) {
+  const csv = rows.map(r => r.map(qzCsvCell).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+  a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+function qzGradebook() {
+  const quizzes = (qzAdminList ? qzAdminList.quizzes : []).slice();
+  const students = {};
+  (qzResultsData || []).forEach(r => {
+    const k = String(r.enrol).toLowerCase().replace(/\s+/g, '');
+    students[k] = students[k] || { name: r.name, enrol: r.enrol, by: {} };
+    students[k].by[String(r.quiz).toLowerCase()] = r;
+  });
+  const list = Object.values(students).sort((a, b) => String(a.enrol).localeCompare(String(b.enrol), undefined, { numeric: true }));
+  return { quizzes, list };
+}
+
+function renderQuizResults() {
+  const root = document.getElementById('qz-root');
+  if (!isInstructor) { qzScreen = 'home'; return renderQuizzes(); }
+  let html = `<button class="btn btn-outline btn-sm" onclick="qzBackHome()"><i class="ti ti-arrow-left"></i> Back</button>`;
+  if (!qzResultsData) { root.innerHTML = html + '<div class="qz-empty">Loading results...</div>'; return; }
+  const quizzes = qzAdminList ? qzAdminList.quizzes : [];
+  html += `<div class="pr-admin-row" style="margin:12px 0;"><label class="qz-meta">Show: </label>
+    <select class="qz-sel" onchange="qzResultsFilter=this.value;renderQuizResults()"><option value="">All quizzes (gradebook)</option>${quizzes.map(q => `<option value="${escapeHtml(q.id)}" ${qzResultsFilter.toLowerCase() === String(q.id).toLowerCase() ? 'selected' : ''}>${escapeHtml(q.title)}</option>`).join('')}</select>
+    <button class="btn btn-outline btn-sm" onclick="qzExport()"><i class="ti ti-download"></i> Download CSV</button></div>`;
+  if (!qzResultsFilter) {
+    const g = qzGradebook();
+    if (!g.list.length) html += '<div class="qz-empty">No attempts yet.</div>';
+    else {
+      html += '<div class="qz-scroll"><table class="qz-table"><thead><tr><th>Enrolment</th><th>Name</th>' + g.quizzes.map(q => `<th>${escapeHtml(q.title)}<div class="qz-meta">out of ${qzFmt(q.marks)}</div></th>`).join('') + '<th>Total</th><th>%</th></tr></thead><tbody>' +
+        g.list.map(s => {
+          let tot = 0, mx = 0;
+          const cells = g.quizzes.map(q => { const r = s.by[String(q.id).toLowerCase()]; if (!r) return '<td class="qz-meta">-</td>'; if (r.score === null) return '<td class="qz-meta">in progress</td>'; tot += r.score; mx += r.total; return `<td>${qzFmt(r.score)}${r.late ? ' <span class="qz-badge draft">late</span>' : ''}</td>`; }).join('');
+          return `<tr><td>${escapeHtml(s.enrol)}</td><td>${escapeHtml(s.name)}</td>${cells}<td><strong>${qzFmt(tot)}</strong></td><td>${mx ? qzPct(tot, mx) + '%' : '-'}</td></tr>`;
+        }).join('') + '</tbody></table></div>';
+    }
+  } else {
+    const rows = qzResultsData.filter(r => String(r.quiz).toLowerCase() === qzResultsFilter.toLowerCase());
+    const done = rows.filter(r => r.score !== null);
+    const avg = done.length ? done.reduce((a, r) => a + qzPct(r.score, r.total), 0) / done.length : 0;
+    html += `<div class="qz-summary"><div class="qz-stat"><b>${rows.length}</b><span>Started</span></div><div class="qz-stat"><b>${done.length}</b><span>Submitted</span></div><div class="qz-stat"><b>${Math.round(avg * 10) / 10}%</b><span>Average</span></div></div>`;
+    if (!rows.length) html += '<div class="qz-empty">No attempts yet.</div>';
+    else html += '<div class="qz-scroll"><table class="qz-table"><thead><tr><th>Enrolment</th><th>Name</th><th>Score</th><th>%</th><th>Submitted</th></tr></thead><tbody>' +
+      rows.slice().sort((a, b) => (b.score === null ? -1 : b.score) - (a.score === null ? -1 : a.score)).map(r => `<tr><td>${escapeHtml(r.enrol)}</td><td>${escapeHtml(r.name)}</td><td>${r.score === null ? '<span class="qz-meta">in progress</span>' : qzFmt(r.score) + ' / ' + qzFmt(r.total)}</td><td>${r.score === null ? '' : qzPct(r.score, r.total) + '%'}</td><td>${escapeHtml(qzDate(r.submitted))}${r.late ? ' <span class="qz-badge draft">late</span>' : ''}</td></tr>`).join('') + '</tbody></table></div>';
+  }
+  root.innerHTML = html;
+}
+
+function qzExport() {
+  if (!qzResultsData) return;
+  if (!qzResultsFilter) {
+    const g = qzGradebook();
+    const rows = [['Enrolment', 'Name'].concat(g.quizzes.map(q => q.title + ' (out of ' + qzFmt(q.marks) + ')')).concat(['Total', 'Percent'])];
+    g.list.forEach(s => {
+      let tot = 0, mx = 0;
+      const cells = g.quizzes.map(q => { const r = s.by[String(q.id).toLowerCase()]; if (!r || r.score === null) return ''; tot += r.score; mx += r.total; return r.score; });
+      rows.push([s.enrol, s.name].concat(cells).concat([tot, mx ? qzPct(tot, mx) : '']));
+    });
+    qzDownload('gradebook.csv', rows);
+  } else {
+    const rows = [['Enrolment', 'Name', 'Quiz', 'Score', 'Total', 'Percent', 'Submitted', 'Late']];
+    qzResultsData.filter(r => String(r.quiz).toLowerCase() === qzResultsFilter.toLowerCase()).forEach(r => rows.push([r.enrol, r.name, r.title, r.score === null ? '' : r.score, r.total === null ? '' : r.total, r.score === null ? '' : qzPct(r.score, r.total), r.submitted, r.late ? 'yes' : '']));
+    qzDownload('quiz_' + qzResultsFilter + '.csv', rows);
+  }
+}
+
+window.addEventListener('beforeunload', (e) => { if (qzState && !qzState.submitting) { e.preventDefault(); e.returnValue = ''; } });
 
 
 init();
