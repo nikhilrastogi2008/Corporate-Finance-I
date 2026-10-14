@@ -474,6 +474,77 @@
     nav { overflow-x: auto; padding: 0 1rem; }
     .nav-tab { padding: 12px 14px; font-size: 0.8rem; }
   }
+  .pr-subnav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .pr-intro { color: var(--text); background: rgba(255,255,255,0.78); display: inline-block; padding: 6px 12px; border-radius: var(--radius); font-size: 0.85rem; margin-bottom: 1rem; }
+  .pr-quiz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .pr-quiz-card { text-align: left; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: var(--radius); padding: 14px 16px; cursor: pointer; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; font-family: inherit; transition: transform .12s, box-shadow .12s; }
+  .pr-quiz-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .pr-quiz-mixed { border-left-color: var(--accent); }
+  .pr-quiz-num { font-size: 0.72rem; font-weight: 700; color: var(--accent); letter-spacing: .05em; }
+  .pr-quiz-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+  .pr-quiz-meta { font-size: 0.78rem; color: var(--text-muted); }
+  .pr-qhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .pr-qprog { font-size: 0.8rem; font-weight: 600; color: var(--primary); background: rgba(255,255,255,0.8); padding: 4px 10px; border-radius: 12px; }
+  .pr-bar { height: 6px; background: rgba(255,255,255,0.6); border-radius: 4px; overflow: hidden; margin-bottom: 12px; }
+  .pr-bar-fill { height: 100%; background: var(--primary); transition: width .25s; }
+  .pr-qmod { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .pr-qtext { font-size: 1.02rem; font-weight: 600; line-height: 1.5; margin-bottom: 14px; }
+  .pr-opts { display: flex; flex-direction: column; gap: 8px; }
+  .pr-opt { display: flex; align-items: flex-start; gap: 10px; text-align: left; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-family: inherit; font-size: 0.92rem; color: var(--text); cursor: pointer; }
+  .pr-opt:hover:not(:disabled) { border-color: var(--primary); background: var(--surface2); }
+  .pr-opt:disabled { cursor: default; }
+  .pr-opt-letter { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--surface2); color: var(--primary); font-weight: 700; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; }
+  .pr-opt.correct { border-color: var(--success); background: var(--success-light); }
+  .pr-opt.correct .pr-opt-letter { background: var(--success); color: #fff; }
+  .pr-opt.wrong { border-color: var(--danger); background: var(--danger-light); }
+  .pr-opt.wrong .pr-opt-letter { background: var(--danger); color: #fff; }
+  .pr-feedback { margin: 14px 0 12px; padding: 10px 12px; border-radius: var(--radius); font-size: 0.88rem; line-height: 1.5; }
+  .pr-feedback.ok { background: var(--success-light); color: #14553f; }
+  .pr-feedback.bad { background: var(--warn-light); color: #6b3a07; }
+  .pr-result { text-align: center; }
+  .pr-score { font-size: 3rem; font-weight: 700; color: var(--primary); font-family: var(--font); }
+  .pr-score span { font-size: 1.4rem; color: var(--text-muted); }
+  .pr-score-msg { margin: 6px 0 16px; color: var(--text); }
+  .pr-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .pr-missed-title { font-weight: 700; color: var(--text); background: rgba(255,255,255,0.8); display: inline-block; padding: 4px 12px; border-radius: 12px; margin: 6px 0 10px; font-size: 0.85rem; }
+  .pr-missed .pr-qtext { font-size: 0.95rem; margin-bottom: 8px; }
+  .pr-missed-ans { color: var(--success); font-size: 0.88rem; margin-bottom: 4px; }
+  .pr-missed-why { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+  .pr-ex-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .pr-ex-tag { background: var(--primary); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  .pr-ex-title { font-weight: 700; font-size: 1rem; }
+  .pr-ex-problem { font-size: 0.9rem; line-height: 1.55; margin-bottom: 10px; }
+  .pr-given { border-collapse: collapse; width: 100%; max-width: 520px; margin-bottom: 12px; font-size: 0.85rem; }
+  .pr-given td { border: 1px solid var(--border); padding: 5px 10px; }
+  .pr-given td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .pr-given tr:nth-child(odd) td { background: var(--surface2); }
+  details summary { cursor: pointer; font-weight: 700; color: var(--primary); font-size: 0.9rem; padding: 4px 0; }
+  .pr-steps { margin: 10px 0 10px 1.2rem; font-size: 0.88rem; line-height: 1.6; }
+  .pr-steps li { margin-bottom: 4px; }
+  .pr-takeaway { background: var(--accent-light); border-radius: var(--radius); padding: 10px 12px; font-size: 0.86rem; line-height: 1.5; }
+  .pr-ftable { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  .pr-ftable td { border-top: 1px solid var(--border); padding: 7px 8px; vertical-align: top; }
+  .pr-fname { font-weight: 600; width: 32%; }
+  .pr-fform { font-family: 'Courier New', monospace; font-size: 0.84rem; }
+  .pr-fnote { font-family: var(--font-ui); font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+  @media (max-width: 600px) { .pr-fname { width: 40%; } }
+  .pr-locked { opacity: 0.65; cursor: default; border-left-color: var(--text-muted); }
+  .pr-locked:hover { transform: none; box-shadow: var(--shadow); }
+  .pr-hidden-badge { background: var(--warn-light); color: var(--warn); font-size: 0.68rem; font-weight: 700; padding: 1px 7px; border-radius: 8px; margin-left: 6px; text-transform: none; letter-spacing: 0; }
+  .pr-admin-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  .pr-switch { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 16px; border: 1.5px solid var(--border); background: var(--surface); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); cursor: pointer; }
+  .pr-switch.on { border-color: var(--success); background: var(--success-light); color: var(--success); }
+  .pr-mgroup .card-title { display: flex; justify-content: space-between; gap: 8px; }
+  .pr-mcount { font-weight: 600; color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+  .pr-mrow { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--border); }
+  .pr-mrow.is-hidden .pr-mq { text-decoration: line-through; color: var(--text-muted); }
+  .pr-mbody { min-width: 0; }
+  .pr-mq { font-size: 0.88rem; font-weight: 600; line-height: 1.4; }
+  .pr-ma { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+  .pr-mtag { background: var(--surface2); border-radius: 8px; padding: 1px 7px; margin-left: 6px; font-size: 0.68rem; font-weight: 700; color: var(--primary); }
+  .pr-msub { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 10px 0 0; padding-top: 6px; border-top: 2px solid var(--border); }
+  .pr-mempty { font-size: 0.82rem; color: var(--text-muted); padding: 6px 0; }
+  .pr-admin-note { font-size: 0.78rem; color: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -512,6 +583,9 @@
   </div>
   <div class="nav-tab" onclick="switchTab('glossary')" id="tab-glossary">
     <i class="ti ti-vocabulary"></i> Glossary
+  </div>
+  <div class="nav-tab" onclick="switchTab('practice')" id="tab-practice">
+    <i class="ti ti-checklist"></i> Practice
   </div>
   <div class="nav-tab" onclick="switchTab('analytics')" id="tab-analytics" style="display:none;">
     <i class="ti ti-chart-bar"></i> Analytics
@@ -714,6 +788,24 @@
     </div>
     <div class="alpha-filter" id="alphaFilter"></div>
     <div id="glossaryList"></div>
+  </div>
+
+  <!-- ============ PRACTICE ============ -->
+  <div class="tab-panel" id="panel-practice">
+    <div class="section-header">
+      <div class="section-title"><i class="ti ti-checklist"></i> Practice and Self-Testing</div>
+    </div>
+    <div id="pr-admin" style="display:none;"></div>
+    <div class="pr-subnav">
+      <button class="filter-btn active" id="pr-btn-quiz" onclick="setPracticeView('quiz')">Module Quizzes</button>
+      <button class="filter-btn" id="pr-btn-examples" onclick="setPracticeView('examples')">Worked Examples</button>
+      <button class="filter-btn" id="pr-btn-formulas" onclick="setPracticeView('formulas')">Formula Sheet</button>
+      <button class="filter-btn" id="pr-btn-manage" onclick="setPracticeView('manage')" style="display:none;">Manage Questions</button>
+    </div>
+    <div id="pr-sec-quiz"></div>
+    <div id="pr-sec-examples" style="display:none;"></div>
+    <div id="pr-sec-formulas" style="display:none;"></div>
+    <div id="pr-sec-manage" style="display:none;"></div>
   </div>
 
   <div class="tab-panel" id="panel-analytics">
@@ -1396,106 +1488,49 @@ let resourceFilter = 'all';
 let glossModuleFilter = 'all';
 let glossAlphaFilter = 'all';
 
-// ⚠️ SETUP REQUIRED — this portal needs its OWN Google Sheet + Apps Script web app,
-// separate from any other course portal. See SETUP_INSTRUCTIONS.md for the full walkthrough:
-// create a Sheet with tabs Resources / Announcements / Glossary / HiddenGlossary / ActivityLog,
-// deploy Code.gs as a web app, share the Sheet as "Anyone with the link — Viewer", then paste
-// the Web app URL, Sheet ID, and each tab's gid below. Until then, instructor edits and
-// student activity logs will only be saved locally in each browser instead of syncing.
-const API_URL = 'https://script.google.com/macros/s/AKfycbzo9rbF9UZWla95lzfz8tqqh40McosDj-euPErG6g2EaKKFcN1ezY2vO_7Sxh285NQH/exec';
-const SHEET_ID = '1jKmld2iE1IJ4uVrXbPVeUC9hztQq0Cu6shGB-vyo2mg';
-const SHEET_GIDS = {
-  Resources: '0',
-  Announcements: '1981783007',
-  Glossary: '1812150024',
-  HiddenGlossary: '1961361785',
-  ActivityLog: '492767237'
-};
+// All data goes through the Apps Script web app below. The Google Sheet itself is private
+// and is never read directly by this page. Set this to your deployment's Web app URL
+// (Apps Script -> Deploy -> Manage deployments).
+const API_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL';
 
-async function apiAppend(sheet, rows) {
+// The instructor password is checked on the server. It is held here in memory only while
+// instructor mode is active, and is never stored or written into this file.
+let instructorKey = '';
+
+async function apiCall(payload) {
   try {
     const resp = await fetch(API_URL, {
       method: 'POST',
       redirect: 'follow',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'append', sheet, rows })
+      body: JSON.stringify(payload)
     });
-    if (!resp.ok) {
-      console.error('apiAppend failed for', sheet, '— status:', resp.status);
-    }
-  } catch(e) {
-    console.error('apiAppend error for', sheet, ':', e);
+    return await resp.json();
+  } catch (e) {
+    console.error('API call failed:', payload.action, payload.sheet || '', e);
+    return { status: 'network' };
   }
 }
 
-function apiRead(sheet) {
-  return new Promise((resolve) => {
-    const gid = SHEET_GIDS[sheet];
-    if (!gid) { resolve(null); return; }
-    const callbackName = 'gsCallback_' + sheet.replace(/[^a-z]/gi,'') + '_' + Date.now();
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${callbackName}&gid=${gid}&headers=1&t=${Date.now()}`;
-    const script = document.createElement('script');
-    let done = false;
+async function apiAppend(sheet, rows) {
+  const r = await apiCall({ action: 'append', sheet, rows });
+  if (r.status !== 'ok') console.error('apiAppend failed for', sheet, r);
+}
 
-    window[callbackName] = function(data) {
-      if (done) return;
-      done = true;
-      try { document.head.removeChild(script); } catch(e) {}
-      delete window[callbackName];
-      try {
-        const cols = data.table.cols.map(c => c.label);
-        const rows = data.table.rows.map(row => {
-          const obj = {};
-          cols.forEach((col, i) => {
-            const cell = row.c[i];
-            obj[col] = cell ? (cell.v !== null && cell.v !== undefined ? cell.v : '') : '';
-          });
-          return obj;
-        }).filter(r => r.id || r.term);
-        resolve(rows);
-      } catch(e) {
-        console.error('gviz parse error for', sheet, e);
-        resolve(null);
-      }
-    };
-
-    script.src = url;
-    script.onerror = function() {
-      if (done) return;
-      done = true;
-      console.error('gviz load failed for', sheet);
-      try { document.head.removeChild(script); } catch(e) {}
-      delete window[callbackName];
-      resolve(null);
-    };
-
-    setTimeout(() => {
-      if (done) return;
-      done = true;
-      console.error('gviz timeout for', sheet);
-      try { document.head.removeChild(script); } catch(e) {}
-      delete window[callbackName];
-      resolve(null);
-    }, 15000);
-
-    document.head.appendChild(script);
-  });
+// Public data: Resources, Announcements, Glossary, HiddenGlossary
+async function apiReadAll() {
+  const r = await apiCall({ action: 'readAll' });
+  return r.status === 'ok' ? r.data : null;
 }
 
 async function apiWrite(sheet, rows) {
-  try {
-    const resp = await fetch(API_URL, {
-      method: 'POST',
-      redirect: 'follow',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'write', sheet, rows })
-    });
-    if (!resp.ok) {
-      console.error('apiWrite failed for', sheet, '— status:', resp.status);
-    }
-  } catch(e) {
-    console.error('apiWrite error for', sheet, ':', e);
+  const r = await apiCall({ action: 'write', sheet, rows, key: instructorKey });
+  if (r.status !== 'ok') {
+    console.error('apiWrite failed for', sheet, r);
+    showToast('Could not save. Please log in as instructor again.');
+    return false;
   }
+  return true;
 }
 
 function saveData(key, val) {
@@ -1510,12 +1545,11 @@ let hiddenGlossaryIds = new Set();
 
 async function syncFromSheets() {
   showToast('Loading data...');
-  const [sheetResources, sheetAnn, sheetGloss, sheetHidden] = await Promise.all([
-    apiRead('Resources'),
-    apiRead('Announcements'),
-    apiRead('Glossary'),
-    apiRead('HiddenGlossary')
-  ]);
+  const all = await apiReadAll();
+  const sheetResources = all ? all.Resources : null;
+  const sheetAnn = all ? all.Announcements : null;
+  const sheetGloss = all ? all.Glossary : null;
+  const sheetHidden = all ? all.HiddenGlossary : null;
 
   // Load hidden glossary IDs
   if (sheetHidden && Array.isArray(sheetHidden)) {
@@ -1552,7 +1586,8 @@ async function syncFromSheets() {
   renderHomeAnnouncements();
   buildAlphaFilter();
   renderGlossary();
-  showToast('✓ Data loaded');
+  loadPractice();
+  showToast(all ? '✓ Data loaded' : 'Could not reach the server. Showing built-in content only.');
 }
 
 async function saveToSheets(sheet, data) {
@@ -1661,7 +1696,10 @@ function logActivity(eventType, detail, module) {
 function toggleRole() {
   if (isInstructor) {
     isInstructor = false;
+    instructorKey = '';
+    clearPracticeContent();
     updateRoleUI();
+    loadPractice();
     showToast('Switched to Student view');
   } else {
     document.getElementById('pwdInput').value = '';
@@ -1671,16 +1709,29 @@ function toggleRole() {
   }
 }
 
-function checkPassword() {
+async function checkPassword() {
   const val = document.getElementById('pwdInput').value;
-  if (val === 'CF2026') {
+  const errEl = document.getElementById('pwdError');
+  if (!val) {
+    errEl.textContent = 'Enter the instructor password.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+  const r = await apiCall({ action: 'auth', key: val });
+  if (r.status === 'ok') {
+    instructorKey = val;
     closeModal('modalPassword');
     isInstructor = true;
     updateRoleUI();
     logActivity('instructor_login', 'instructor mode activated');
+    loadPractice();
     showToast('Instructor mode activated');
   } else {
-    document.getElementById('pwdError').style.display = 'block';
+    errEl.textContent = r.status === 'denied'
+      ? 'Incorrect password. Try again.'
+      : 'Could not reach the server. Check your connection and try again.';
+    errEl.style.display = 'block';
     document.getElementById('pwdInput').select();
   }
 }
@@ -1705,6 +1756,7 @@ function updateRoleUI() {
   renderAnnouncements();
   renderGlossary();
   renderHomeAnnouncements();
+  if (typeof setPracticeView === 'function' && typeof PRACTICE !== 'undefined') setPracticeView(practiceView);
 }
 
 // =====================
@@ -1717,6 +1769,7 @@ function switchTab(name) {
   document.getElementById('tab-' + name).classList.add('active');
   logActivity('tab_view', name);
   if (name === 'analytics' && isInstructor) renderAnalytics();
+  if (name === 'practice') renderPractice();
 }
 
 // =====================
@@ -2319,12 +2372,22 @@ async function renderAnalytics() {
   const recentEl = document.getElementById('analyticsRecentTable');
   summaryEl.innerHTML = '<div style="grid-column:1/-1;color:var(--text-muted);font-size:0.85rem;">Loading…</div>';
 
-  const log = await apiRead('ActivityLog');
-  if (!log || !Array.isArray(log)) {
-    summaryEl.innerHTML = '<div style="grid-column:1/-1;color:var(--danger);font-size:0.85rem;">Could not load ActivityLog. Make sure the ActivityLog tab exists and its gid is set in SHEET_GIDS.</div>';
+  const res = await apiCall({ action: 'read', sheet: 'ActivityLog', key: instructorKey });
+  if (res.status !== 'ok') {
+    const msg = res.status === 'denied'
+      ? 'Your instructor session was not accepted by the server. Switch to Student view and log in again.'
+      : 'Could not load the activity log. Check your connection and that the Apps Script is deployed with the latest version.';
+    summaryEl.innerHTML = '<div style="grid-column:1/-1;color:var(--danger);font-size:0.85rem;">' + msg + '</div>';
     resEl.innerHTML = ''; studEl.innerHTML = ''; recentEl.innerHTML = '';
     return;
   }
+  const log = res.rows.map(r => Object.assign({}, r, {
+    timestamp: String(r.timestamp || ''),
+    name: String(r.name || ''),
+    enrollmentId: String(r.enrollmentId === undefined ? '' : r.enrollmentId),
+    eventType: String(r.eventType || ''),
+    detail: String(r.detail || '')
+  }));
 
   const logins = log.filter(r => r.eventType === 'login' || r.eventType === 'instructor_login');
   const opens = log.filter(r => r.eventType === 'resource_open');
@@ -2404,6 +2467,537 @@ function init() {
   document.getElementById('gmod-all').classList.add('active');
   syncFromSheets();
 }
+
+// =====================
+// PRACTICE DATA
+// =====================
+// Quizzes and worked examples are NOT stored in this page. They are fetched from
+// the server (PracticeContent.gs) only for modules the instructor has released.
+// Only the formula sheet, which is always open, lives here.
+const PRACTICE_MODULE_IDS = [1, 2, 3, 4, 5, 6];
+const PRACTICE = {
+  quizzes: {},
+  examples: [],
+  formulas: [
+  {
+    "title": "Time value of money",
+    "items": [
+      [
+        "Future value",
+        "FV = PV x (1 + r)^n",
+        ""
+      ],
+      [
+        "Present value",
+        "PV = FV / (1 + r)^n",
+        ""
+      ],
+      [
+        "Ordinary annuity PV",
+        "PV = C x [1 - (1 + r)^-n] / r",
+        "Annuity due: multiply by (1 + r)"
+      ],
+      [
+        "Growing annuity PV",
+        "PV = C1 / (r - g) x [1 - ((1 + g)/(1 + r))^n]",
+        ""
+      ],
+      [
+        "Perpetuity PV",
+        "PV = C / r",
+        ""
+      ],
+      [
+        "Growing perpetuity PV",
+        "PV = C1 / (r - g)",
+        "C1 is next period's cash flow"
+      ],
+      [
+        "Effective annual rate",
+        "EAR = (1 + nominal / m)^m - 1",
+        "m = compounding periods per year; continuous: e^rate - 1"
+      ]
+    ]
+  },
+  {
+    "title": "Bonds and stocks",
+    "items": [
+      [
+        "Bond price",
+        "P = C x [1 - (1 + y)^-n] / y + F / (1 + y)^n",
+        "y = YTM, C = coupon, F = face value"
+      ],
+      [
+        "Current yield",
+        "Annual coupon / Price",
+        "Ignores the gain or loss at maturity"
+      ],
+      [
+        "Gordon growth model",
+        "P0 = D1 / (r - g)",
+        "D1 = D0 x (1 + g)"
+      ],
+      [
+        "Implied required return",
+        "r = D1 / P0 + g",
+        ""
+      ],
+      [
+        "Preferred stock",
+        "P = D / r",
+        ""
+      ]
+    ]
+  },
+  {
+    "title": "Capital budgeting",
+    "items": [
+      [
+        "NPV",
+        "NPV = sum of CFt / (1 + r)^t, t = 0 to n",
+        "Accept if NPV > 0"
+      ],
+      [
+        "IRR",
+        "Rate at which NPV = 0",
+        "Accept (independent project) if IRR > required return"
+      ],
+      [
+        "Payback",
+        "Years until cumulative cash flow covers the outlay",
+        "Discounted payback uses discounted cash flows"
+      ],
+      [
+        "Profitability index",
+        "PV of future cash flows / Initial outlay",
+        "PI > 1 means NPV > 0"
+      ],
+      [
+        "Crossover rate",
+        "IRR of the difference between two projects' cash flows",
+        ""
+      ]
+    ]
+  },
+  {
+    "title": "Project cash flows",
+    "items": [
+      [
+        "Operating cash flow",
+        "OCF = EBIT x (1 - T) + Depreciation",
+        "Equivalent to (Revenue - Cash costs) x (1 - T) + T x Depreciation"
+      ],
+      [
+        "After-tax salvage",
+        "Sale price - T x (Sale price - Book value)",
+        ""
+      ],
+      [
+        "Net working capital",
+        "Outflow when invested, inflow when recovered",
+        ""
+      ],
+      [
+        "Relevant flows",
+        "Incremental cash flows only",
+        "Ignore sunk costs and financing costs; include opportunity costs and erosion"
+      ]
+    ]
+  },
+  {
+    "title": "Risk and return",
+    "items": [
+      [
+        "Expected return",
+        "E(R) = sum of pi x Ri",
+        ""
+      ],
+      [
+        "Variance",
+        "Var = sum of pi x (Ri - E(R))^2",
+        "Standard deviation = square root of variance"
+      ],
+      [
+        "Portfolio return",
+        "Ep = wA x EA + wB x EB",
+        ""
+      ],
+      [
+        "Covariance",
+        "Cov(A,B) = Correlation x sdA x sdB",
+        ""
+      ],
+      [
+        "Portfolio variance",
+        "wA^2 sdA^2 + wB^2 sdB^2 + 2 wA wB Cov(A,B)",
+        ""
+      ],
+      [
+        "CAPM",
+        "Required return = Rf + Beta x (Rm - Rf)",
+        "Plotted as the security market line"
+      ]
+    ]
+  },
+  {
+    "title": "Cost of capital",
+    "items": [
+      [
+        "Cost of equity (CAPM)",
+        "Re = Rf + Beta x (Rm - Rf)",
+        ""
+      ],
+      [
+        "Cost of equity (dividend growth)",
+        "Re = D1 / P0 + g",
+        ""
+      ],
+      [
+        "After-tax cost of debt",
+        "Rd x (1 - T)",
+        ""
+      ],
+      [
+        "Cost of preferred stock",
+        "D / P",
+        ""
+      ],
+      [
+        "WACC",
+        "E/V x Re + D/V x Rd x (1 - T)",
+        "Weights at market values, V = E + D"
+      ]
+    ]
+  }
+]
+};
+
+// =====================
+// PRACTICE TAB
+// =====================
+let practiceView = 'quiz';
+let quizState = null;
+const QUIZ_BEST_KEY = 'cf203_quiz_best';
+// Which modules' practice activities the instructor has released to students.
+let practiceEnabled = {};
+function isReleased(id) { return practiceEnabled[String(id)] === true; }
+function canUsePractice(id) { return isInstructor || isReleased(id); }
+
+let practiceLoaded = false;
+
+// Fetches the practice content the server is willing to give us:
+// released modules for students, everything for the instructor.
+async function loadPractice() {
+  const r = await apiCall({ action: 'practice', key: instructorKey });
+  if (r.status !== 'ok') { renderPracticeIfIdle(); return; }
+  const next = {};
+  Object.keys(r.released || {}).forEach(id => { if (r.released[id]) next[String(id)] = true; });
+  practiceEnabled = next;
+  PRACTICE.quizzes = r.quizzes || {};
+  PRACTICE.examples = r.examples || [];
+  practiceLoaded = true;
+  renderPracticeIfIdle();
+}
+
+function visibleQs(id) { return (PRACTICE.quizzes[id] || []).filter(q => !q.hidden); }
+
+function renderPracticeIfIdle() {
+  // Do not disturb a quiz in progress
+  if (!(practiceView === 'quiz' && quizState)) setPracticeView(practiceView);
+}
+
+function clearPracticeContent() {
+  PRACTICE.quizzes = {};
+  PRACTICE.examples = [];
+  practiceLoaded = false;
+}
+
+function practiceRows() {
+  return PRACTICE_MODULE_IDS.map(id => ({ module: id, enabled: isReleased(id) }));
+}
+
+async function setPracticeModules(ids, on) {
+  if (!isInstructor) return;
+  const prev = Object.assign({}, practiceEnabled);
+  ids.forEach(i => { practiceEnabled[String(i)] = on; });
+  setPracticeView(practiceView);
+  const ok = await apiWrite('PracticeSettings', practiceRows());
+  if (!ok) { practiceEnabled = prev; setPracticeView(practiceView); return; }
+  loadPractice();
+  showToast(ids.length === 1 ? ('Module ' + ids[0] + (on ? ' released to students' : ' hidden from students')) : (on ? 'All modules released' : 'All modules hidden'));
+}
+
+function renderPracticeAdmin() {
+  const el = document.getElementById('pr-admin');
+  if (!isInstructor) { el.style.display = 'none'; el.innerHTML = ''; return; }
+  const ids = PRACTICE_MODULE_IDS;
+  el.style.display = 'block';
+  el.innerHTML = `<div class="instructor-section">
+    <div class="instructor-label"><i class="ti ti-lock-open"></i> Instructor Controls: release practice by module</div>
+    <div class="pr-admin-row">
+      ${ids.map(id => `<label class="pr-switch ${isReleased(id) ? 'on' : ''}"><input type="checkbox" ${isReleased(id) ? 'checked' : ''} onchange="setPracticeModules([${Number(id)}], this.checked)"><span>M${Number(id)}</span></label>`).join('')}
+      <button class="btn btn-outline btn-sm" onclick="setPracticeModules([${ids.join(',')}], true)">Release all</button>
+      <button class="btn btn-outline btn-sm" onclick="setPracticeModules([${ids.join(',')}], false)">Hide all</button>
+    </div>
+    <div class="pr-admin-note">Checked modules are open to students (quiz and worked examples). Unchecked ones stay hidden from students but you can still see them. The formula sheet is always open.</div>
+  </div>`;
+}
+function getQuizBest() {
+  try { return JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || '{}') || {}; } catch (e) { return {}; }
+}
+function saveQuizBest(key, score) {
+  try {
+    const b = getQuizBest();
+    if (b[key] === undefined || score > b[key]) { b[key] = score; localStorage.setItem(QUIZ_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) {}
+}
+function shuffleArr(a) {
+  const r = a.slice();
+  for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
+  return r;
+}
+
+function renderPractice() { setPracticeView(practiceView); loadPractice(); }
+
+function setPracticeView(v) {
+  if (v === 'manage' && !isInstructor) v = 'quiz';
+  practiceView = v;
+  renderPracticeAdmin();
+  document.getElementById('pr-btn-manage').style.display = isInstructor ? '' : 'none';
+  ['quiz', 'examples', 'formulas', 'manage'].forEach(k => {
+    document.getElementById('pr-sec-' + k).style.display = (k === v) ? 'block' : 'none';
+    document.getElementById('pr-btn-' + k).classList.toggle('active', k === v);
+  });
+  if (v === 'quiz') renderQuizHome();
+  if (v === 'examples') renderExamples();
+  if (v === 'formulas') renderFormulas();
+  if (v === 'manage') renderManage();
+}
+
+function moduleName(id) {
+  const m = MODULES_DATA.find(x => x.id === Number(id));
+  return m ? m.title : '';
+}
+
+function renderQuizHome() {
+  quizState = null;
+  const best = getQuizBest();
+  const el = document.getElementById('pr-sec-quiz');
+  const anyOpen = PRACTICE_MODULE_IDS.some(id => canUsePractice(id) && visibleQs(id).length);
+  let html = '<p class="pr-intro">Pick a module for a short self-check. Options are shuffled each attempt. Your best scores are remembered on this device.</p><div class="pr-quiz-grid">';
+  PRACTICE_MODULE_IDS.forEach(id => {
+    const qs = PRACTICE.quizzes[id] ? visibleQs(id) : null;
+    const n = qs ? qs.length : 0;
+    const b = best['m' + id];
+    const open = canUsePractice(id) && qs && n > 0;
+    if (!open) {
+      html += `<div class="pr-quiz-card pr-locked">
+        <span class="pr-quiz-num">M${Number(id)} <i class="ti ti-lock"></i></span>
+        <span class="pr-quiz-title">${escapeHtml(moduleName(id))}</span>
+        <span class="pr-quiz-meta">${canUsePractice(id) && !practiceLoaded ? 'Loading...' : (canUsePractice(id) && qs ? 'No questions in this module yet.' : 'Not open yet. Your instructor will release it.')}</span>
+      </div>`;
+      return;
+    }
+    html += `<button class="pr-quiz-card" onclick="startQuiz(${Number(id)})">
+      <span class="pr-quiz-num">M${Number(id)}${isInstructor && !isReleased(id) ? ' <span class="pr-hidden-badge">hidden from students</span>' : ''}</span>
+      <span class="pr-quiz-title">${escapeHtml(moduleName(id))}</span>
+      <span class="pr-quiz-meta">${n} questions${b !== undefined ? ' &middot; best ' + b + '/' + n : ''}</span>
+    </button>`;
+  });
+  const bm = best.mixed;
+  if (anyOpen) {
+    html += `<button class="pr-quiz-card pr-quiz-mixed" onclick="startQuiz('mixed')">
+      <span class="pr-quiz-num"><i class="ti ti-arrows-shuffle"></i></span>
+      <span class="pr-quiz-title">Mixed revision quiz</span>
+      <span class="pr-quiz-meta">Up to 10 random questions from the open modules${bm !== undefined ? ' &middot; best ' + bm + '/10' : ''}</span>
+    </button>`;
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function startQuiz(which) {
+  let pool;
+  if (which === 'mixed') {
+    pool = [];
+    PRACTICE_MODULE_IDS.filter(id => canUsePractice(id)).forEach(id => visibleQs(id).forEach(q => pool.push({ q, module: id })));
+    if (!pool.length) { renderQuizHome(); return; }
+    pool = shuffleArr(pool).slice(0, 10);
+  } else {
+    if (!canUsePractice(which) || !visibleQs(which).length) { renderQuizHome(); return; }
+    pool = shuffleArr(visibleQs(which).map(q => ({ q, module: Number(which) })));
+  }
+  const items = pool.map(p => {
+    const idxs = shuffleArr(p.q.o.map((_, i) => i));
+    return { module: p.module, text: p.q.q, opts: idxs.map(i => p.q.o[i]), correct: idxs.indexOf(0), why: p.q.why };
+  });
+  quizState = { which, items, i: 0, score: 0, answered: false, missed: [] };
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const s = quizState;
+  const it = s.items[s.i];
+  const el = document.getElementById('pr-sec-quiz');
+  const label = s.which === 'mixed' ? 'Mixed revision' : 'Module ' + s.which;
+  el.innerHTML = `
+    <div class="pr-qhead">
+      <button class="btn btn-outline btn-sm" onclick="renderQuizHome()"><i class="ti ti-arrow-left"></i> All quizzes</button>
+      <span class="pr-qprog">${escapeHtml(label)} &middot; Question ${s.i + 1} of ${s.items.length}</span>
+    </div>
+    <div class="pr-bar"><div class="pr-bar-fill" style="width:${(s.i / s.items.length) * 100}%"></div></div>
+    <div class="card pr-qcard">
+      ${s.which === 'mixed' ? `<div class="pr-qmod">M${it.module}: ${escapeHtml(moduleName(it.module))}</div>` : ''}
+      <div class="pr-qtext">${escapeHtml(it.text)}</div>
+      <div class="pr-opts" id="prOpts">
+        ${it.opts.map((o, k) => `<button class="pr-opt" onclick="answerQuiz(${k})" id="prOpt${k}"><span class="pr-opt-letter">${'ABCD'[k]}</span><span>${escapeHtml(o)}</span></button>`).join('')}
+      </div>
+      <div id="prFeedback"></div>
+    </div>`;
+  s.answered = false;
+}
+
+function answerQuiz(k) {
+  const s = quizState;
+  if (!s || s.answered) return;
+  s.answered = true;
+  const it = s.items[s.i];
+  const ok = (k === it.correct);
+  if (ok) s.score++; else s.missed.push(it);
+  it.opts.forEach((_, j) => {
+    const b = document.getElementById('prOpt' + j);
+    b.disabled = true;
+    if (j === it.correct) b.classList.add('correct');
+    else if (j === k) b.classList.add('wrong');
+  });
+  const last = (s.i === s.items.length - 1);
+  document.getElementById('prFeedback').innerHTML = `
+    <div class="pr-feedback ${ok ? 'ok' : 'bad'}">
+      <strong>${ok ? 'Correct.' : 'Not quite.'}</strong> ${escapeHtml(it.why)}
+    </div>
+    <button class="btn btn-primary" onclick="nextQuiz()">${last ? 'See result' : 'Next question'} <i class="ti ti-arrow-right"></i></button>`;
+}
+
+function nextQuiz() {
+  const s = quizState;
+  if (!s) return;
+  if (s.i < s.items.length - 1) { s.i++; renderQuizQuestion(); return; }
+  finishQuiz();
+}
+
+function finishQuiz() {
+  const s = quizState;
+  const total = s.items.length;
+  const key = s.which === 'mixed' ? 'mixed' : 'm' + s.which;
+  saveQuizBest(key, s.score);
+  const modLabel = s.which === 'mixed' ? 'Mixed' : 'M' + s.which;
+  logActivity('quiz_complete', modLabel + ' quiz: ' + s.score + '/' + total, s.which === 'mixed' ? '' : String(s.which));
+  const pct = Math.round((s.score / total) * 100);
+  const msg = pct >= 80 ? 'Strong grasp of this material.' : pct >= 50 ? 'Getting there. Review the missed questions below.' : 'Worth revisiting the sessions for this module before trying again.';
+  const el = document.getElementById('pr-sec-quiz');
+  el.innerHTML = `
+    <div class="card pr-result">
+      <div class="pr-score">${s.score}<span> / ${total}</span></div>
+      <div class="pr-score-msg">${pct}% &middot; ${msg}</div>
+      <div class="pr-result-actions">
+        <button class="btn btn-primary" onclick="startQuiz(${s.which === 'mixed' ? "'mixed'" : s.which})"><i class="ti ti-refresh"></i> Try again</button>
+        <button class="btn btn-outline" onclick="renderQuizHome()">All quizzes</button>
+      </div>
+    </div>
+    ${s.missed.length ? '<div class="pr-missed-title">Review your missed questions</div>' + s.missed.map(m => `
+      <div class="card pr-missed">
+        <div class="pr-qtext">${escapeHtml(m.text)}</div>
+        <div class="pr-missed-ans"><strong>Answer:</strong> ${escapeHtml(m.opts[m.correct])}</div>
+        <div class="pr-missed-why">${escapeHtml(m.why)}</div>
+      </div>`).join('') : '<div class="pr-missed-title">No missed questions. Nice work.</div>'}`;
+}
+
+function renderManage() {
+  const el = document.getElementById('pr-sec-manage');
+  if (!isInstructor) { el.innerHTML = ''; return; }
+  let html = '<p class="pr-intro">Hide any question or worked example (built-in or your own) from students, or show it again. Hidden items are not sent to students at all. To delete one of your own for good, delete its row in the PracticeQuestions or PracticeExamples tab of your Sheet.</p>';
+  PRACTICE_MODULE_IDS.forEach(id => {
+    const qs = PRACTICE.quizzes[id] || [];
+    const shown = qs.filter(q => !q.hidden).length;
+    html += `<div class="card pr-mgroup"><div class="card-title">M${id}: ${escapeHtml(moduleName(id))} <span class="pr-mcount">${shown} shown / ${qs.length} total</span></div>`;
+    if (!qs.length) html += '<div class="pr-mempty">No questions yet.</div>';
+    qs.forEach(q => {
+      html += `<div class="pr-mrow ${q.hidden ? 'is-hidden' : ''}">
+        <div class="pr-mbody">
+          <div class="pr-mq">${escapeHtml(q.q)}</div>
+          <div class="pr-ma">Answer: ${escapeHtml(q.o[0])} <span class="pr-mtag">${String(q.id).charAt(0) === 'c' ? 'your question' : 'built-in'}</span>${q.hidden ? '<span class="pr-hidden-badge">hidden from students</span>' : ''}</div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="toggleQuestionHidden('${escapeHtml(q.id)}')">${q.hidden ? 'Show' : 'Hide'}</button>
+      </div>`;
+    });
+    const exs = PRACTICE.examples.filter(e => Number(e.module) === id);
+    if (exs.length) html += '<div class="pr-msub">Worked examples</div>';
+    exs.forEach(e => {
+      html += `<div class="pr-mrow ${e.hidden ? 'is-hidden' : ''}">
+        <div class="pr-mbody">
+          <div class="pr-mq">${escapeHtml(e.title)}</div>
+          <div class="pr-ma">Worked example <span class="pr-mtag">${String(e.id).charAt(0) === 'y' ? 'your example' : 'built-in'}</span>${e.hidden ? '<span class="pr-hidden-badge">hidden from students</span>' : ''}</div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="toggleQuestionHidden('${escapeHtml(e.id)}')">${e.hidden ? 'Show' : 'Hide'}</button>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+async function toggleQuestionHidden(id) {
+  if (!isInstructor) return;
+  let target = null;
+  PRACTICE_MODULE_IDS.forEach(m => (PRACTICE.quizzes[m] || []).forEach(q => { if (q.id === id) target = q; }));
+  PRACTICE.examples.forEach(e => { if (e.id === id) target = e; });
+  if (!target) return;
+  const wantHidden = !target.hidden;
+  if (wantHidden) target.hidden = true; else delete target.hidden;
+  renderManage();
+  const r = await apiCall({ action: 'setHidden', id, hidden: wantHidden, key: instructorKey });
+  if (r.status !== 'ok') {
+    if (wantHidden) delete target.hidden; else target.hidden = true;
+    renderManage();
+    showToast('Could not save. Please log in as instructor again.');
+  }
+}
+
+function renderExamples() {
+  const el = document.getElementById('pr-sec-examples');
+  const visible = PRACTICE.examples.filter(ex => canUsePractice(ex.module) && !ex.hidden);
+  if (!visible.length) {
+    el.innerHTML = '<p class="pr-intro">No worked examples are open yet. Your instructor will release them module by module.</p>';
+    return;
+  }
+  el.innerHTML = '<p class="pr-intro">Try each problem on paper first, then open the solution to check your working.</p>' +
+    visible.map((ex, i) => `
+      <div class="card pr-ex">
+        <div class="pr-ex-head"><span class="pr-ex-tag">M${ex.module}</span><span class="pr-ex-title">${escapeHtml(ex.title)}</span>${isInstructor && !isReleased(ex.module) ? '<span class="pr-hidden-badge">hidden from students</span>' : ''}</div>
+        <p class="pr-ex-problem">${escapeHtml(ex.problem)}</p>
+        <table class="pr-given"><tbody>
+          ${ex.given.map(g => `<tr><td>${escapeHtml(g[0])}</td><td>${escapeHtml(g[1])}</td></tr>`).join('')}
+        </tbody></table>
+        <details ontoggle="if(this.open) logActivity('example_open', ${JSON.stringify(ex.title).replace(/"/g, '&quot;')}, '${ex.module}')">
+          <summary>Show solution</summary>
+          <ol class="pr-steps">${ex.steps.map(st => `<li>${escapeHtml(st)}</li>`).join('')}</ol>
+          <div class="pr-takeaway"><strong>Takeaway:</strong> ${escapeHtml(ex.takeaway)}</div>
+        </details>
+      </div>`).join('');
+}
+
+function renderFormulas() {
+  const el = document.getElementById('pr-sec-formulas');
+  el.innerHTML = '<p class="pr-intro">Quick reference. Rates are annual unless stated; cash flows are assumed to arrive at the end of each period.</p>' +
+    PRACTICE.formulas.map(g => `
+      <div class="card pr-fgroup">
+        <div class="card-title">${escapeHtml(g.title)}</div>
+        <table class="pr-ftable"><tbody>
+          ${g.items.map(f => `<tr><td class="pr-fname">${escapeHtml(f[0])}</td><td class="pr-fform">${escapeHtml(f[1])}${f[2] ? `<div class="pr-fnote">${escapeHtml(f[2])}</div>` : ''}</td></tr>`).join('')}
+        </tbody></table>
+      </div>`).join('');
+}
+
 
 init();
 </script>
